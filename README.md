@@ -1,3 +1,4 @@
-# My Game sucks
-
-# EMO BADDIE
+# GAME INFORMATION
+beep boop
+# WHY I MADE THE GAME
+meowwww
