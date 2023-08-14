@@ -1,3 +1,3 @@
-# EMO BADDIE
+# My Game sucks
 
-Make sure you give it a good description here...
+# EMO BADDIE
