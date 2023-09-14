@@ -75,12 +75,58 @@ class Game {
 		this.targetColor = this.getRandomColor();
 		/** @type {Array<ClickShape>}*/
 		this.shapes = [];
+		this.spawnInterval = 500; //milliseconds
+		this.lastSpawnTime = 0;
 	}
 	getRandomColor() {
 		let randomIndex = Math.floor(Math.random() * this.colors.length);
 		return this.colors[randomIndex];
+		console.log();
+	}
+
+	spawnShape(elapsedTime) {
+		this.lastSpawnTime += elapsedTime;
+		if (this.lastSpawnTime < this.spawnInterval) {
+			return;
+		}
+		this.lastSpawnTime = 0;
+		let s = new ClickShape();
+		s.color = this.getRandomColor();
+		s.y = 0 - s.w;
+		// # 0 - 7o
+		let randX = Math.floor(Math.random() * (canvas.width / s.w) - s.w);
+		s.x = randX * s.w;
+		this.shapes.push(s);
+		console.log();
+	}
+	update(elapsedTime) {
+		this.spawnShape(elapsedTime);
+		this.shapes.forEach((s) => {
+			s.update();
+			s.draw();
+		});
+		console.log();
+	}
+	draw() {
+		this.shapes.forEach((s) => {
+			s.update();
+		});
+		console.log();
 	}
 }
 
 let game = new Game();
 console.log(game);
+
+let currentTime = 0;
+
+let gameLoop = function (timestamp) {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	let elapsedTime = timestamp - currentTime;
+	currentTime = timestamp;
+	game.update(elapsedTime);
+	game.draw();
+	window.requestAnimationFrame(gameLoop);
+	console.log();
+};
+window.requestAnimationFrame(gameLoop);
